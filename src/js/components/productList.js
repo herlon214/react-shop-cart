@@ -32,30 +32,24 @@ class ProductList extends Component {
   }
 
   render() {
-
-    const Product_List = [];
-    this.state.products.forEach((product) => {
-      if(product.quantity > 0) {
-        Product_List.push(
-          <Product
-            key=            {product.id}
-            id=             {product.id}
-            name=           {product.name}
-            desc=           {product.desc}
-            imgSrc=         {product.imgSrc}
-            quantity=       {product.quantity}
-            price=          {product.price}
-            handleAddCart=  {this.handleAddCart}
-          />
-        )
-      }
-    });
-    
     return (
       <div>
         <div style={{padding: '.5em'}}>
           <div className="row">
-            {Product_List}
+            { this.state.products
+              .filter((product) => product.quantity > 0) // Filter only available products
+              .map((product) => { // Parse the object to component
+              return <Product
+                key=            {product.id}
+                id=             {product.id}
+                name=           {product.name}
+                desc=           {product.desc}
+                imgSrc=         {product.imgSrc}
+                quantity=       {product.quantity}
+                price=          {product.price}
+                handleAddCart=  {this.handleAddCart}
+              />
+            })}
           </div>
         </div>
       </div>
